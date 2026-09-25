@@ -1,0 +1,12 @@
+Scaffold Astro/Tailwind boilerplate for client presentational sites
+
+Astro 7 (TypeScript strict) + Tailwind v4 + Biome + Vitest (incl.
+Astro Container API component test) + Playwright smoke tests,
+Content Collections, validated env vars, SEO/sitemap defaults,
+Husky pre-commit, GitHub Actions CI (lint/typecheck/test/build/e2e
+blocking, Lighthouse advisory), Dependabot, and Cloudflare Pages
+config. Verified end-to-end: lint, typecheck, unit tests, and
+production build all pass clean.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01R7otFC9sziHsGRBLmjMn6R

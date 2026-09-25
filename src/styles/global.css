@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/*
+ * Tailwind v4 theme tokens. Override per-client but keep the same token
+ * names (--color-brand-*) so components don't need rewriting between
+ * projects — only this block changes.
+ */
+@theme {
+  --color-brand-50: #f5f7fa;
+  --color-brand-100: #e4e9f0;
+  --color-brand-500: #3b5a80;
+  --color-brand-600: #2f4864;
+  --color-brand-900: #111827;
+
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-brand-900 antialiased;
+  }
+}

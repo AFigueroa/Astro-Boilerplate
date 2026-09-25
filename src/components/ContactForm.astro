@@ -1,0 +1,48 @@
+---
+import { env } from "@/env/config";
+
+// Swap the endpoint per client (Formspree, Web3Forms, etc.) via
+// PUBLIC_CONTACT_FORM_ENDPOINT in .env — no code change required.
+const endpoint = env.PUBLIC_CONTACT_FORM_ENDPOINT;
+---
+
+<form
+  id="contact-form"
+  action={endpoint}
+  method="POST"
+  class="flex max-w-md flex-col gap-4"
+>
+  <label class="flex flex-col gap-1 text-sm">
+    Name
+    <input
+      type="text"
+      name="name"
+      required
+      class="rounded border border-brand-100 px-3 py-2"
+    />
+  </label>
+  <label class="flex flex-col gap-1 text-sm">
+    Email
+    <input
+      type="email"
+      name="email"
+      required
+      class="rounded border border-brand-100 px-3 py-2"
+    />
+  </label>
+  <label class="flex flex-col gap-1 text-sm">
+    Message
+    <textarea
+      name="message"
+      required
+      rows="4"
+      class="rounded border border-brand-100 px-3 py-2"
+    ></textarea>
+  </label>
+  <button
+    type="submit"
+    class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-900"
+  >
+    Send
+  </button>
+</form>

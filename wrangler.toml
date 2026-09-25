@@ -1,0 +1,16 @@
+# Cloudflare Pages project config.
+#
+# Most projects don't need this file at all — connecting the GitHub repo
+# in the Cloudflare dashboard (Workers & Pages > Create > Pages > Connect
+# to Git) with these build settings is enough:
+#
+#   Build command:   npm run build
+#   Build output:    dist
+#   Node version:    set via .nvmrc (Cloudflare reads it automatically)
+#
+# This file is only needed if you deploy via `wrangler pages deploy`
+# from CI/CLI instead of the dashboard's git integration.
+
+name = "astro-boilerplate"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-01-01"
