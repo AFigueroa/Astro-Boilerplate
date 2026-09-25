@@ -34,7 +34,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vitest": "^5.0.2",
     "zod": "^4.6.5"
   },
