@@ -4,11 +4,22 @@ import { env } from "@/env/config";
 // Swap the endpoint per client (Formspree, Web3Forms, etc.) via
 // PUBLIC_CONTACT_FORM_ENDPOINT in .env — no code change required.
 const endpoint = env.PUBLIC_CONTACT_FORM_ENDPOINT;
+// Static hosts reject POSTs to the page itself, so without an endpoint the
+// form would fail silently for visitors — disable it and say why instead.
+const configured = Boolean(endpoint);
 ---
+
+{
+  !configured && (
+    <p class="mb-4 rounded border border-brand-100 bg-brand-50 px-3 py-2 text-sm text-brand-600">
+      Contact form is not configured. Set PUBLIC_CONTACT_FORM_ENDPOINT in .env.
+    </p>
+  )
+}
 
 <form
   id="contact-form"
-  action={endpoint}
+  action={configured ? endpoint : undefined}
   method="POST"
   class="flex max-w-md flex-col gap-4"
 >
@@ -41,7 +52,8 @@ const endpoint = env.PUBLIC_CONTACT_FORM_ENDPOINT;
   </label>
   <button
     type="submit"
-    class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-900"
+    disabled={!configured}
+    class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-50"
   >
     Send
   </button>

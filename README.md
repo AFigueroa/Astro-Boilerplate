@@ -35,7 +35,7 @@ Pages deploy wired up.
    cp .env.example .env
    ```
 4. Set `site` in `astro.config.mjs` to the project's production URL.
-5. Update `tailwind.config.mjs` colors/fonts to the client's brand.
+5. Update the `@theme` tokens in `src/styles/global.css` to the client's brand.
 6. Start the dev server:
    ```bash
    npm run dev
@@ -61,7 +61,7 @@ src/
   components/     Reusable .astro components (Header, Footer, SEO, Button, ...)
   layouts/        Layout.astro — wraps every page with <head>, nav, footer
   pages/          File-based routing
-  content/        Content Collections (blog/, services/) — schema in content/config.ts
+  content/        Content Collections (blog/, services/) — schema in src/content.config.ts
   env/            Validated environment variables (src/env/config.ts)
   lib/            Plain TS utilities (tested with Vitest)
   styles/         global.css (Tailwind entry point)
@@ -97,7 +97,7 @@ a CDK stack to a given project only when deliberately deploying to AWS.
 
 ## Adding a client's brand
 
-- Colors/fonts: `tailwind.config.mjs`
+- Colors/fonts: `@theme` block in `src/styles/global.css` (keep the `--color-brand-*` names)
 - Site name / nav: `src/components/Header.astro`, `src/env/config.ts` (`PUBLIC_SITE_NAME`)
 - Favicon: `public/favicon.svg`
 - Contact form endpoint: `PUBLIC_CONTACT_FORM_ENDPOINT` in `.env` (e.g. Formspree, Web3Forms)
