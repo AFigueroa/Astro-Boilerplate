@@ -2,7 +2,7 @@
 
 Standard starting point for presentational/marketing client sites: Astro +
 TypeScript + Tailwind + Biome + Vitest + Playwright, with CI and Cloudflare
-Pages deploy wired up.
+Workers (static assets) deploy wired up.
 
 ## Stack
 
@@ -14,7 +14,7 @@ Pages deploy wired up.
 | Unit tests | [Vitest](https://vitest.dev) (+ Astro Container API for component tests) |
 | E2E tests | [Playwright](https://playwright.dev) |
 | Content | Astro Content Collections (Zod-validated frontmatter) |
-| Hosting | [Cloudflare Pages](https://pages.cloudflare.com) (default) |
+| Hosting | [Cloudflare Workers static assets](https://developers.cloudflare.com/workers/static-assets/) (default) |
 | CI | GitHub Actions |
 | Dependency updates | Dependabot |
 
@@ -81,16 +81,16 @@ Dependabot opens weekly PRs for npm and GitHub Actions dependency updates.
 
 ## Deploying
 
-**Cloudflare Pages (default):**
-1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git
+**Cloudflare Workers (default):**
+1. Cloudflare dashboard → Workers & Pages → Create → Workers → Import a repository
 2. Build command: `npm run build`
-3. Build output directory: `dist`
-4. Node version is read from `.nvmrc` automatically
-5. Every push to `main` auto-deploys; every PR gets a preview URL
+3. Deploy command: `npx wrangler deploy` (reads `wrangler.toml`, uploads `dist/`)
+4. The Worker name in the dashboard must exactly match `name` in `wrangler.toml`
+5. Node version is read from `.nvmrc` automatically
+6. Every push to `main` auto-deploys; PR branches get preview URLs
 
 **Other hosts:** Vercel and Netlify both auto-detect Astro — connect the repo,
-accept the defaults, done. `wrangler.toml` is only needed if deploying via
-the Cloudflare CLI instead of the dashboard's git integration.
+accept the defaults, done. `wrangler.toml` is only used by Cloudflare.
 
 **AWS (S3 + CloudFront):** not included in this boilerplate by default — add
 a CDK stack to a given project only when deliberately deploying to AWS.
