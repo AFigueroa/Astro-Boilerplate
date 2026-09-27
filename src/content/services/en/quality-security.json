@@ -1,0 +1,8 @@
+{
+  "title": "Quality & Security",
+  "summary": "Add CI, automated tests, dependency scanning, and security headers to an existing codebase.",
+  "urlSlug": "quality-security",
+  "startingAt": 3500,
+  "order": 4,
+  "featured": false
+}

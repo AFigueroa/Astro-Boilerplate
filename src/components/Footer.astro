@@ -1,11 +1,25 @@
 ---
 import { env } from "@/env/config";
+import type { Locale } from "@/i18n/routes";
+import { useTranslations } from "@/i18n/ui";
 
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
 const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-brand-100 py-8">
-  <div class="mx-auto max-w-6xl px-4 text-sm text-brand-600">
-    <p>&copy; {year} {env.PUBLIC_SITE_NAME}. All rights reserved.</p>
+  <div class="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 px-4 text-sm text-brand-600">
+    <p>&copy; {year} {env.PUBLIC_SITE_NAME}. {t("footer.rights")}</p>
+    <p>
+      {t("footer.email")}:
+      <a href={`mailto:${env.PUBLIC_CONTACT_EMAIL}`} class="underline hover:text-brand-900">
+        {env.PUBLIC_CONTACT_EMAIL}
+      </a>
+    </p>
   </div>
 </footer>

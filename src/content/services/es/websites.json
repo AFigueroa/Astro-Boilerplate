@@ -1,0 +1,8 @@
+{
+  "title": "Sitios web",
+  "summary": "Sitios de mercadeo y contenido rápidos y accesibles, creados con Astro y Tailwind, entregados con pruebas automatizadas y CI.",
+  "urlSlug": "sitios-web",
+  "startingAt": 4500,
+  "order": 1,
+  "featured": false
+}

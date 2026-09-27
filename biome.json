@@ -14,7 +14,9 @@
       "!**/node_modules",
       "!**/playwright-report",
       "!**/test-results",
-      "!**/coverage"
+      "!**/coverage",
+      "!**/reports",
+      "!**/.lighthouseci"
     ]
   },
   "formatter": {

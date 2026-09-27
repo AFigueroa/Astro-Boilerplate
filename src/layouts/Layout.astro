@@ -2,31 +2,41 @@
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import SEO from "@/components/SEO.astro";
+import { type Locale, localeMeta, type RouteKey } from "@/i18n/routes";
 import "@/styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  locale: Locale;
+  routeKey: RouteKey;
   image?: string;
   noindex?: boolean;
 }
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, locale, routeKey, image, noindex } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={localeMeta[locale].hreflang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <SEO title={title} description={description} image={image} noindex={noindex} />
+    <SEO
+      title={title}
+      description={description}
+      locale={locale}
+      routeKey={routeKey}
+      image={image}
+      noindex={noindex}
+    />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Header />
+    <Header locale={locale} routeKey={routeKey} />
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>

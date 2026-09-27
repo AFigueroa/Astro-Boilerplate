@@ -6,6 +6,9 @@ export default getViteConfig({
     globals: true,
     environment: "node",
     include: ["src/**/*.{test,spec}.{js,ts}"],
+    // JSON output feeds scripts/quality-report.mjs (published test counts).
+    reporters: ["default", "json"],
+    outputFile: { json: "reports/vitest.json" },
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
