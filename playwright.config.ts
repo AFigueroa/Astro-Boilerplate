@@ -5,7 +5,11 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? "github" : "list",
+  // JSON output feeds scripts/quality-report.mjs (published test counts).
+  reporter: [
+    [process.env.CI ? "github" : "list"],
+    ["json", { outputFile: "reports/playwright.json" }],
+  ],
   use: {
     baseURL: "http://localhost:4321",
     trace: "on-first-retry",

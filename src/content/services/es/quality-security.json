@@ -1,0 +1,8 @@
+{
+  "title": "Calidad y seguridad",
+  "summary": "Integramos CI, pruebas automatizadas, análisis de dependencias y encabezados de seguridad a tu código existente.",
+  "urlSlug": "calidad-seguridad",
+  "startingAt": 3500,
+  "order": 4,
+  "featured": false
+}

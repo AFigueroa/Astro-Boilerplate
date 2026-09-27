@@ -34,7 +34,7 @@ Domain: `bateylabs.com` · Business email: `antonio.figueroa@bateylabs.com`
 
 | Client | Location | Status | Portfolio use | Likely services |
 | --- | --- | --- | --- | --- |
-| AR & Associates (Ana M. Ramírez) | Dallas, TX / DR | In build | Launch portfolio piece once live and approved | Bilingual site, AI media, **care plan** (first recurring client) |
+| AR & Associates (Ana M. Ramírez) | Dallas, TX / DR | In build | Launch portfolio piece once live and approved | Bilingual site, AI media, ongoing care. **Billed under her pre-existing agreement, not this price list.** |
 | Miapiel (aesthetics clinic) | Puerto Rico | Lined up | Add when live and approved | Bilingual site, booking integration, AI media, care plan |
 | Flower shop (name TBD, new business) | TBD | Lined up | Add when live and approved | Site + online ordering (first **web-app / integration** example), possibly branding help |
 | Koper Furniture | TBD | Pending owner approval of the project plan | **Don't list** until signed and approved | TBD |
@@ -166,10 +166,8 @@ Out-of-plan work is billed at the $125/hr care-plan rate.
 | Strategy call | — | Quarterly | Monthly |
 | Support response time | 2 business days | 1 business day | Same business day |
 
-**AR & Associates recommendation:** Growth ($349/mo). The site is bilingual, has a legal-content
-review cycle, and will run Google Ads, so the monthly SEO report and bilingual updates are
-exactly what it needs. If you discount it, show the discount on the invoice (see §4
-principles).
+AR & Associates is billed under her pre-existing agreement, not these tiers. The tiers apply
+to new clients from Miapiel onward.
 
 ## 5. Accessibility service (featured)
 
@@ -202,8 +200,8 @@ pipeline, **without making the repo public**.
   - Lighthouse scores (mobile) for Performance, Accessibility, Best Practices, and SEO
   - axe results: serious/critical violations across all pages, EN + ES
   - Test counts: unit, e2e, and accessibility
-  - Security: known vulnerabilities from Snyk / `npm audit`, and a security-headers grade
-  - Core Web Vitals: LCP, CLS, INP
+  - Security: known vulnerabilities from `npm audit` (Snyk as an extra gate)
+  - Web vitals (lab): LCP, CLS, and Total Blocking Time (INP needs real-user data)
   - "Last verified" date and the commit short-hash
 - **How the numbers are produced:** a CI job writes a `quality.json` (test results, axe, audit,
   Lighthouse) that the build reads and renders. Nothing is typed in by hand, so the numbers
@@ -333,7 +331,6 @@ Both languages are first-class for search, not a translated afterthought.
 - [ ] Professional liability / E&O insurance quote. Cyber liability is worth pricing too.
 - [ ] Payment and invoicing (Stripe invoicing or the bank's tool); recurring billing for care
       plans.
-- [ ] Put AR & Associates on a care-plan agreement at launch.
 - [ ] Portfolio permission clause in the SOW template, so listing approval is collected up front.
 - [ ] LinkedIn and GitHub updated to Batey Labs; résumé's "Windsurf" line → Claude Code.
 
@@ -347,18 +344,30 @@ Both languages are first-class for search, not a translated afterthought.
 - [ ] Real headshot for About (never AI-generated).
 - [ ] Social/OG image template in EN and ES.
 
-### Phase 0: Foundations
-- [ ] `site` → `https://bateylabs.com`; `Sitemap:` in `public/robots.txt`; `package.json`
-      `name` → `batey-labs-portal`.
-- [ ] Private preview on `*.workers.dev` with site-wide `noindex` until public launch.
-- [ ] Astro i18n per §7: `en` default unprefixed, `es` under `/es/`, translated slugs, JSON
-      content pairs with shared Zod schemas, EN/ES parity test.
-- [ ] `public/_headers`: CSP, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`,
-      `frame-ancestors 'none'`.
-- [ ] CI additions: `@axe-core/playwright`, Snyk (free tier) + Dependabot, Lighthouse CI with
-      budgets (≥ 95 all categories), and a `quality.json` generation step (§6).
-- [ ] Move deploy to GitHub Actions `wrangler deploy` after checks pass (§6); disconnect
-      Workers Builds auto-deploy.
+### Phase 0: Foundations (done 2026-09-26, branch `phase-0-foundations`)
+- [x] `site` → `https://bateylabs.com`; `Sitemap:` in `public/robots.txt`; `package.json`
+      `name` → `batey-labs-portal`; Worker `name` → `batey-labs`.
+- [x] Site-wide `noindex` until `PUBLIC_INDEXABLE=true` (GitHub repo variable).
+- [x] Astro i18n per §7: `en` default unprefixed, `es` under `/es/`, translated slugs from one
+      route table (`src/i18n/routes.json`), `hreflang` + `x-default`, sitemap alternates,
+      bilingual JSON collections (`services` seeded with §4 prices), and EN/ES parity tests.
+- [x] Security: Astro-generated CSP `<meta>` (script/style hashes) plus `public/_headers`
+      (`frame-ancestors`, HSTS, nosniff, Referrer-Policy, Permissions-Policy, COOP).
+- [x] CI: axe WCAG 2.2 AA scans of every page in both languages, Lighthouse budgets (a11y,
+      best practices, SEO ≥ 95 and CLS blocking; performance warns), `npm audit` blocking at
+      high, Snyk step that activates when `SNYK_TOKEN` is set, `quality.json` generation.
+- [x] Deploy moved to GitHub Actions (`wrangler deploy` after all checks pass).
+- [x] **Antonio:** GitHub secrets/variable added; Git-connected Worker deleted.
+- [ ] Merge `phase-0-foundations` to `main` for the first preview deploy.
+- [ ] **Antonio:** review the Spanish service summaries in `src/content/services/es/`.
+- [x] **Antonio:** leftover boilerplate files deleted.
+
+Notes from the build:
+- Local run of the full pipeline: Lighthouse 100/100/100/100 on all 8 pages, 0 axe violations,
+  0 npm vulnerabilities, 45 automated tests.
+- "Security-headers grade" (§6) was dropped as a published stat: `_headers` only applies on
+  Cloudflare, so it's verified by a unit test on the file instead. INP isn't measurable in lab
+  runs, so Total Blocking Time is published alongside LCP and CLS.
 
 ### Phase 1: Shell & components
 - [ ] Header (nav, mobile menu, language switcher), Footer (email, social, legal links).
@@ -399,6 +408,15 @@ Both languages are first-class for search, not a translated afterthought.
       Accessibility service page, clearly labeled as a demo.
 
 ### Phase 5: Media
+- [ ] Founder photos (in `Batey Labs/media/`, real studio portraits on a mottled blue backdrop):
+      - `profile2.jpg`: formal suit headshot → About hero, `Person` JSON-LD, OG image, and
+        LinkedIn/Google Business Profile.
+      - `profile1.jpg`: casual three-quarter standing shot with open space on the left → Home
+        founder intro; the space leaves room for text.
+      - Downscale originals (4–5k px, 1.5–2.8 MB) to ~2400 px before committing to
+        `src/assets/about/`; Astro `<Image />` generates the responsive AVIF/WebP sizes.
+      - Optional: cut `profile1` out from its background and use it as a foreground parallax
+        layer.
 - [ ] AI-generated parallax layers (separated depth layers, no rendered text), AVIF/WebP via
       Astro assets.
 - [ ] Alt text EN + ES for every image.
@@ -432,18 +450,17 @@ Both languages are first-class for search, not a translated afterthought.
 - **Proof of quality:** published stats generated by CI (§6). The repo stays **private**.
 - **Languages:** EN (default, `/`) + ES (`/es/`), full bilingual SEO (§7).
 - **Accessibility:** featured service with audit, remediation, and ACR tiers (§5).
-- **Pricing display:** "starting at" prices on the site (§4). Care plans are fully itemized with
-  exact monthly prices (§4a).
+- **Pricing:** §4 and §4a prices approved for now, shown as "starting at" on the site. Care plans
+  are fully itemized with exact monthly prices. AR & Associates is billed separately under her
+  earlier agreement.
 - **How We Work:** its own page (§8b).
 - **Portfolio:** AR & Associates at launch; Miapiel and the flower shop as they ship; Koper
   Furniture pending approval. Listing requires client permission.
 
 ## 11. Open questions
 
-1. Are the suggested prices (§4) and care-plan tiers (§4a) acceptable, or should anything move?
-2. AR & Associates: which care plan, and will you give a founding-client discount?
-3. About page voice: first person ("I") or studio voice ("we")? *Recommendation:* "we" for
+1. About page voice: first person ("I") or studio voice ("we")? *Recommendation:* "we" for
    the studio pages and "I" on About. That's honest about being a one-person studio while
    leaving room to grow.
-4. Bio, headshot, and social links: pending from Antonio.
-5. Flower shop: name, and whether online ordering is in scope for their v1.
+2. Bio and social links: pending from Antonio (headshots received).
+3. Flower shop: name, and whether online ordering is in scope for their v1.

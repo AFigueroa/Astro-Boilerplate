@@ -1,0 +1,8 @@
+{
+  "title": "Accesibilidad",
+  "summary": "Auditorías WCAG 2.2 AA, corrección de problemas e informes de conformidad, incluso para sitios que no desarrollamos.",
+  "urlSlug": "accesibilidad",
+  "startingAt": 1500,
+  "order": 2,
+  "featured": true
+}

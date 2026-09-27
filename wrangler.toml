@@ -1,16 +1,15 @@
 # Cloudflare Workers config — static site served as Workers static assets.
 #
-# The Git integration (Workers Builds) runs:
-#   Build command:   npm run build
-#   Deploy command:  npx wrangler deploy
+# Deployed by the `deploy` job in .github/workflows/ci.yml (`wrangler deploy`)
+# after every check passes — not by Cloudflare's Workers Builds Git
+# integration, which would deploy without waiting for tests. Keep Workers
+# Builds disconnected for this Worker.
+#
 # `wrangler deploy` reads this file and uploads ./dist. There's no Worker
 # script (`main`) — the site is fully prerendered, so Cloudflare serves the
-# files directly.
-#
-# `name` MUST match the Worker's name in the Cloudflare dashboard exactly,
-# or Workers Builds fails with a name-mismatch error.
+# files directly. `name` is the Worker's name in the Cloudflare dashboard.
 
-name = "portal"
+name = "batey-labs"
 compatibility_date = "2026-09-26"
 
 [assets]

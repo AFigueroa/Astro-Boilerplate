@@ -1,7 +1,16 @@
 ---
 import { env } from "@/env/config";
+import type { Locale } from "@/i18n/routes";
+import { useTranslations } from "@/i18n/ui";
 
-// Swap the endpoint per client (Formspree, Web3Forms, etc.) via
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+// Swap the endpoint (Formspree, Web3Forms, etc.) via
 // PUBLIC_CONTACT_FORM_ENDPOINT in .env — no code change required.
 const endpoint = env.PUBLIC_CONTACT_FORM_ENDPOINT;
 // Static hosts reject POSTs to the page itself, so without an endpoint the
@@ -12,7 +21,10 @@ const configured = Boolean(endpoint);
 {
   !configured && (
     <p class="mb-4 rounded border border-brand-100 bg-brand-50 px-3 py-2 text-sm text-brand-600">
-      Contact form is not configured. Set PUBLIC_CONTACT_FORM_ENDPOINT in .env.
+      {t("contact.notConfigured")}{" "}
+      <a href={`mailto:${env.PUBLIC_CONTACT_EMAIL}`} class="underline">
+        {env.PUBLIC_CONTACT_EMAIL}
+      </a>
     </p>
   )
 }
@@ -24,30 +36,32 @@ const configured = Boolean(endpoint);
   class="flex max-w-md flex-col gap-4"
 >
   <label class="flex flex-col gap-1 text-sm">
-    Name
+    {t("contact.name")}
     <input
       type="text"
       name="name"
+      autocomplete="name"
       required
-      class="rounded border border-brand-100 px-3 py-2"
+      class="rounded border border-brand-500 px-3 py-2"
     />
   </label>
   <label class="flex flex-col gap-1 text-sm">
-    Email
+    {t("contact.email")}
     <input
       type="email"
       name="email"
+      autocomplete="email"
       required
-      class="rounded border border-brand-100 px-3 py-2"
+      class="rounded border border-brand-500 px-3 py-2"
     />
   </label>
   <label class="flex flex-col gap-1 text-sm">
-    Message
+    {t("contact.message")}
     <textarea
       name="message"
       required
       rows="4"
-      class="rounded border border-brand-100 px-3 py-2"
+      class="rounded border border-brand-500 px-3 py-2"
     ></textarea>
   </label>
   <button
@@ -55,6 +69,6 @@ const configured = Boolean(endpoint);
     disabled={!configured}
     class="rounded bg-brand-600 px-4 py-2 text-white hover:bg-brand-900 disabled:cursor-not-allowed disabled:opacity-50"
   >
-    Send
+    {t("contact.send")}
   </button>
 </form>
