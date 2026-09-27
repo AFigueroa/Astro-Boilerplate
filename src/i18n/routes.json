@@ -1,0 +1,6 @@
+{
+  "home": { "en": "/", "es": "/es/" },
+  "services": { "en": "/services/", "es": "/es/servicios/" },
+  "about": { "en": "/about/", "es": "/es/sobre-mi/" },
+  "contact": { "en": "/contact/", "es": "/es/contacto/" }
+}

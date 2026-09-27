@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import type { Locale } from "@/i18n/routes";
+import { formatPrice, useTranslations } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const services = (
+  await getCollection("services", (entry) => entry.id.startsWith(`${locale}/`))
+).sort((a, b) => a.data.order - b.data.order);
+
+const copy = {
+  en: {
+    title: "Services",
+    description:
+      "Websites, accessibility, web apps, quality and security, AI media, hosting, and mobile apps.",
+  },
+  es: {
+    title: "Servicios",
+    description:
+      "Sitios web, accesibilidad, aplicaciones web, calidad y seguridad, medios con IA, hospedaje y aplicaciones móviles.",
+  },
+}[locale];
+---
+
+<Layout title={copy.title} description={copy.description} locale={locale} routeKey="services">
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <h1 class="font-serif text-3xl font-semibold text-brand-900">{copy.title}</h1>
+    <ul class="mt-8 space-y-6">
+      {
+        services.map((service) => (
+          <li>
+            <h2 class="text-xl font-medium text-brand-900">{service.data.title}</h2>
+            <p class="mt-1 text-brand-600">{service.data.summary}</p>
+            <p class="mt-1 text-sm font-medium text-brand-900">
+              {service.data.startingAt === null
+                ? t("services.quote")
+                : `${t("services.startingAt")} ${formatPrice(service.data.startingAt, locale)}`}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>
