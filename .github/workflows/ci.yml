@@ -40,7 +40,7 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run test
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: reports-unit
           path: reports/vitest.json
@@ -68,7 +68,7 @@ jobs:
       - name: Snyk (fails on high/critical)
         if: env.SNYK_TOKEN != ''
         run: npx --yes snyk@1 test --severity-threshold=high
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: reports-security
@@ -87,7 +87,7 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist
@@ -110,14 +110,14 @@ jobs:
           name: dist
           path: dist
       - run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: reports-e2e
           path: |
             reports/playwright.json
             reports/axe
           retention-days: 7
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report
@@ -143,7 +143,7 @@ jobs:
       # performance only warns (shared CI runners make it noisy).
       - name: Run Lighthouse CI
         run: npx --yes @lhci/cli@0.15.1 autorun ${{ env.PUBLIC_INDEXABLE != 'true' && '--collect.settings.skipAudits=is-crawlable' || '' }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: reports-lighthouse
