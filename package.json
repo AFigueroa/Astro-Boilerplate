@@ -1,5 +1,5 @@
 {
-  "name": "astro-boilerplate",
+  "name": "batey-labs-portal",
   "type": "module",
   "version": "0.1.0",
   "private": true,
@@ -21,11 +21,14 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "lighthouse": "npx --yes @lhci/cli@0.15.1 autorun --collect.settings.skipAudits=is-crawlable",
+    "quality": "node scripts/quality-report.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.7.4",
+    "@axe-core/playwright": "^4.13.0",
     "@biomejs/biome": "^2.5.14",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",

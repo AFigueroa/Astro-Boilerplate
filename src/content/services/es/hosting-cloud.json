@@ -1,0 +1,8 @@
+{
+  "title": "Hospedaje y nube",
+  "summary": "Cloudflare por defecto; AWS o Google Cloud cuando tu proyecto lo requiera. Migraciones sin interrupciones.",
+  "urlSlug": "hospedaje-nube",
+  "startingAt": 750,
+  "order": 6,
+  "featured": false
+}

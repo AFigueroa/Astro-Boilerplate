@@ -1,0 +1,8 @@
+{
+  "title": "Websites",
+  "summary": "Fast, accessible marketing and content sites built with Astro and Tailwind, delivered with a full test suite and CI pipeline.",
+  "urlSlug": "websites",
+  "startingAt": 4500,
+  "order": 1,
+  "featured": false
+}

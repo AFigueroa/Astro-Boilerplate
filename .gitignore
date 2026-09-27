@@ -13,6 +13,8 @@ node_modules/
 coverage/
 playwright-report/
 test-results/
+reports/
+.lighthouseci/
 
 # editor
 .vscode/*
