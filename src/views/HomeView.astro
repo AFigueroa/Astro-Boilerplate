@@ -1,0 +1,35 @@
+---
+import type { Locale } from "@/i18n/routes";
+import Layout from "@/layouts/Layout.astro";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+// Placeholder copy until the content pass (plan.md Phase 3).
+const copy = {
+  en: {
+    title: "Web Engineering for Texas & Puerto Rico",
+    description:
+      "Batey Labs builds fast, accessible, secure websites and web apps — engineer-led and AI-accelerated.",
+    heading: "Enterprise-grade web engineering, delivered at AI speed.",
+    lead: "Websites and web apps for Texas and Puerto Rico businesses — accessible, secure, and fully tested.",
+  },
+  es: {
+    title: "Ingeniería web para Texas y Puerto Rico",
+    description:
+      "Batey Labs crea sitios y aplicaciones web rápidos, accesibles y seguros, dirigidos por un ingeniero y acelerados con IA.",
+    heading: "Ingeniería web de nivel empresarial, a la velocidad de la IA.",
+    lead: "Sitios y aplicaciones web para negocios en Texas y Puerto Rico: accesibles, seguros y completamente probados.",
+  },
+}[locale];
+---
+
+<Layout title={copy.title} description={copy.description} locale={locale} routeKey="home">
+  <section class="mx-auto max-w-6xl px-4 py-24 text-center">
+    <h1 class="font-serif text-4xl font-semibold text-brand-900 sm:text-5xl">{copy.heading}</h1>
+    <p class="mx-auto mt-4 max-w-xl text-brand-600">{copy.lead}</p>
+  </section>
+</Layout>

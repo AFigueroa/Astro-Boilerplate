@@ -16,12 +16,27 @@ const blog = defineCollection({
     }),
 });
 
+/**
+ * Bilingual JSON collections: one file per entry per locale, at
+ * `<collection>/<locale>/<id>.json`, so entry ids come out as "en/websites"
+ * and "es/websites". Both locales share one schema; `content.test.ts` fails
+ * if an entry exists in one locale but not the other.
+ */
 const services = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/services" }),
+  loader: glob({ pattern: "{en,es}/*.json", base: "./src/content/services" }),
   schema: z.object({
     title: z.string(),
     summary: z.string(),
-    order: z.number().default(0),
+    /**
+     * Translated URL slug for the service's own page (Phase 3). Not named
+     * `slug`: the glob loader would use that as the entry id and drop the
+     * locale folder from it.
+     */
+    urlSlug: z.string().regex(/^[a-z0-9-]+$/),
+    /** "Starting at" price in USD; null means quoted per project. */
+    startingAt: z.number().int().positive().nullable(),
+    order: z.number().int(),
+    featured: z.boolean().default(false),
   }),
 });
 

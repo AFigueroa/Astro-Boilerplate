@@ -1,16 +1,16 @@
-# Cloudflare Pages project config.
+# Cloudflare Workers config — static site served as Workers static assets.
 #
-# Most projects don't need this file at all — connecting the GitHub repo
-# in the Cloudflare dashboard (Workers & Pages > Create > Pages > Connect
-# to Git) with these build settings is enough:
+# Deployed by the `deploy` job in .github/workflows/ci.yml (`wrangler deploy`)
+# after every check passes — not by Cloudflare's Workers Builds Git
+# integration, which would deploy without waiting for tests. Keep Workers
+# Builds disconnected for this Worker.
 #
-#   Build command:   npm run build
-#   Build output:    dist
-#   Node version:    set via .nvmrc (Cloudflare reads it automatically)
-#
-# This file is only needed if you deploy via `wrangler pages deploy`
-# from CI/CLI instead of the dashboard's git integration.
+# `wrangler deploy` reads this file and uploads ./dist. There's no Worker
+# script (`main`) — the site is fully prerendered, so Cloudflare serves the
+# files directly. `name` is the Worker's name in the Cloudflare dashboard.
 
-name = "astro-boilerplate"
-pages_build_output_dir = "dist"
-compatibility_date = "2026-01-01"
+name = "batey-labs"
+compatibility_date = "2026-09-26"
+
+[assets]
+directory = "./dist"
